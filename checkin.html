@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly check-in</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-path="design">
+<a class="skip" href="#form">Skip to the check-in form</a>
+
+<header class="top">
+  <a class="home" href="index.html">Game Design check-ins</a>
+  <div class="path-pick">
+    <label for="path-select">Path</label>
+    <select id="path-select"></select>
+  </div>
+</header>
+
+<main>
+  <nav aria-label="Weeks">
+    <ol id="track" class="track"></ol>
+  </nav>
+
+  <h1 id="heading">Weekly check-in</h1>
+
+  <section class="brief" aria-label="This week">
+    <dl>
+      <dt>Target for this week</dt>
+      <dd id="target"></dd>
+      <dt>Evidence to show</dt>
+      <dd id="evidence-ask"></dd>
+    </dl>
+    <p><a id="unity-link" href="#" target="_blank" rel="noopener" hidden></a></p>
+  </section>
+
+  <form id="form" autocomplete="off">
+    <div class="row">
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" type="text">
+      </div>
+      <div class="field narrow">
+        <label for="period">Class period <span class="hint">(optional)</span></label>
+        <input id="period" type="text">
+      </div>
+    </div>
+
+    <div class="field" id="code-field">
+      <label for="code">Class code</label>
+      <span class="hint">Your teacher gives you this code. It lets you submit.</span>
+      <input id="code" type="text">
+    </div>
+
+    <div class="field">
+      <label for="evidence">Evidence you can show</label>
+      <span class="hint">Paste a link, or describe the file or build you will show.</span>
+      <textarea id="evidence" rows="2"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="finished">What I finished</label>
+      <textarea id="finished" rows="3"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="next">What I am doing next</label>
+      <textarea id="next" rows="3"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="blocked">What is blocking me</label>
+      <span class="hint">Write "nothing" if you are not stuck.</span>
+      <textarea id="blocked" rows="2"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="q0" id="q0-label"></label>
+      <textarea id="q0" rows="3"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="q1" id="q1-label"></label>
+      <textarea id="q1" rows="3"></textarea>
+    </div>
+
+    <fieldset class="field">
+      <legend>My status</legend>
+      <div id="status-options" class="status-options"></div>
+    </fieldset>
+
+    <div class="field">
+      <label for="goal">My goal for next week</label>
+      <span class="hint">One specific thing you can finish.</span>
+      <textarea id="goal" rows="2"></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="button" id="submit" class="primary">Submit check-in</button>
+      <button type="button" id="copy">Copy check-in</button>
+      <button type="button" id="download">Download check-in</button>
+      <a class="button" href="https://classroom.google.com" target="_blank" rel="noopener">Open Google Classroom</a>
+      <button type="button" id="clear" class="quiet">Clear this week</button>
+    </div>
+    <p id="message" class="message" role="status" aria-live="polite"></p>
+    <p class="note">Your answers are saved in this browser, on this computer, until you submit. Submit sends the check-in to your teacher. If Submit is not available, copy the check-in into Google Classroom or attach the downloaded file. On a shared computer, clear the week after you turn it in.</p>
+  </form>
+</main>
+
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

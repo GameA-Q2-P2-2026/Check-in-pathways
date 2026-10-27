@@ -4,7 +4,8 @@ A static website for weekly check-ins. Everyone starts with two Unity
 Essentials check-ins, then checks in five times on their path (Design,
 Programming, Development / Management, or Game Writing). Students build each
 check-in and submit it from the page. The site also explains how the course is
-graded and links a Word check-in sheet for Essentials and for each path.
+graded (1000 points) and links a Word check-in sheet for Essentials and for each
+path.
 
 There is no build step. Every file here is served as is by GitHub Pages.
 

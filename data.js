@@ -1,5 +1,28 @@
 window.CHECKIN_DATA = {
   "paths": {
+    "essentials": {
+      "name": "Unity Essentials",
+      "unity": "Everyone starts here",
+      "link": "https://learn.unity.com/pathway/unity-essentials?version=6.0",
+      "weeks": [
+        {
+          "target": "About half of the Unity Essentials parts complete; Unity installed and a project open",
+          "evidence": "The Unity Learn progress page, plus your open project",
+          "questions": [
+            "What is the most useful thing you have learned in the Editor so far?",
+            "What tool or window do you still find confusing?"
+          ]
+        },
+        {
+          "target": "All Unity Essentials parts complete; checkpoint scene ready (runs, has lighting, and one interactive element)",
+          "evidence": "The pathway marked complete, plus your checkpoint scene running",
+          "questions": [
+            "Which choices in your scene did you make on purpose, and why?",
+            "Which path are you leaning toward, and what made you choose it?"
+          ]
+        }
+      ]
+    },
     "design": {
       "name": "Design",
       "unity": "Creative Core",
@@ -190,6 +213,7 @@ window.CHECKIN_DATA = {
     }
   },
   "order": [
+    "essentials",
     "design",
     "programming",
     "development",

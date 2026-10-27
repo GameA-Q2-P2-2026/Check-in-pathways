@@ -12,7 +12,7 @@
   var pathId = params.get("path");
   if (!D.paths[pathId]) pathId = D.order[0];
   var week = parseInt(params.get("week"), 10);
-  if (!(week >= 1 && week <= 5)) week = 1;
+  if (!(week >= 1 && week <= D.paths[pathId].weeks.length)) week = 1;
 
   function store(key, value) {
     try { window.localStorage.setItem(PREFIX + key, JSON.stringify(value)); } catch (e) { /* storage may be blocked */ }
@@ -76,7 +76,7 @@
   function renderTrack() {
     var list = $("track");
     list.innerHTML = "";
-    for (var w = 1; w <= 5; w++) {
+    for (var w = 1; w <= D.paths[pathId].weeks.length; w++) {
       var saved = load(weekKey(pathId, w));
       var li = document.createElement("li");
       var a = document.createElement("a");
@@ -117,7 +117,7 @@
     var unityLink = $("unity-link");
     if (p.link) {
       unityLink.href = p.link;
-      unityLink.textContent = "Open the Unity Learn pathway: " + p.unity;
+      unityLink.textContent = "Open the Unity Learn pathway";
       unityLink.hidden = false;
     } else {
       unityLink.hidden = true;
@@ -128,6 +128,7 @@
   }
 
   function go(newPath, newWeek) {
+    if (newWeek > D.paths[newPath].weeks.length) newWeek = 1;
     pathId = newPath;
     week = newWeek;
     window.history.replaceState(null, "", "checkin.html?path=" + pathId + "&week=" + week);
@@ -144,7 +145,7 @@
       "Name: " + d.name,
       d.period ? "Class period: " + d.period : null,
       "Path: " + p.name + " (" + p.unity + ")",
-      "Week: " + week + " of 5",
+      "Week: " + week + " of " + p.weeks.length,
       "Target this week: " + w.target,
       "",
       "Evidence I can show (" + w.evidence + "):",

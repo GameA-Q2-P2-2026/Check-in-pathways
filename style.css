@@ -14,6 +14,7 @@
   --body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
+body[data-path="essentials"], li[data-path="essentials"] { --accent: #1a6fa8; }
 body[data-path="design"], li[data-path="design"] { --accent: #a3197c; }
 body[data-path="programming"], li[data-path="programming"] { --accent: #0b6e5f; }
 body[data-path="development"], li[data-path="development"] { --accent: #9a4d00; }
@@ -100,7 +101,7 @@ h1 {
   margin: 0;
   padding: 0;
 }
-.track li { flex: 1; min-width: 0; }
+.track li { flex: 1; min-width: 0; max-width: 10rem; }
 .track a {
   display: flex;
   flex-direction: column;
@@ -246,6 +247,7 @@ button.quiet { border-color: transparent; text-decoration: underline; background
   align-items: flex-start;
   gap: 0.5rem;
 }
+.paths li.wide { grid-column: 1 / -1; }
 .paths h2 { font-family: var(--head); font-size: 1.5rem; margin: 0; }
 .paths p { margin: 0; color: var(--soft); }
 

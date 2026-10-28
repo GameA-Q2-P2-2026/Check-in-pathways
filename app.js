@@ -143,7 +143,7 @@
     var lines = [
       "GAME DESIGN CHECK-IN",
       "Name: " + d.name,
-      d.period ? "Class period: " + d.period : null,
+      "Class period: " + d.period,
       "Class code: " + d.code,
       "Path: " + p.name + " (" + p.unity + ")",
       "Week: " + week + " of " + p.weeks.length,
@@ -170,8 +170,9 @@
 
   function validate() {
     var d = readForm();
-    if (!d.code) { say("Enter the class code from your teacher.", true); $("code").focus(); return false; }
     if (!d.name) { say("Add your name first.", true); $("name").focus(); return false; }
+    if (!d.period) { say("Enter your class period.", true); $("period").focus(); return false; }
+    if (!d.code) { say("Enter the class code from your teacher.", true); $("code").focus(); return false; }
     if (!d.status) { say("Pick a status: green, yellow, or red.", true); document.querySelector('input[name="status"]').focus(); return false; }
     if (!d.finished || !d.next || !d.goal) {
       say("Fill in what you finished, what you are doing next, and your goal for next week.", true);
@@ -331,7 +332,7 @@
     var s = statusLabel(d.status);
     var rows = [
       ["Name", d.name],
-      ["Class period", d.period || ""],
+      ["Class period", d.period],
       ["Class code", d.code],
       ["Path", p.name + " (" + p.unity + ")"],
       ["Week", week + " of " + p.weeks.length],

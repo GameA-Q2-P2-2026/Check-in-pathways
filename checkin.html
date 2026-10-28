@@ -6,106 +6,133 @@
 <title>Weekly check-in</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body data-path="design">
+<body data-path="essentials">
 <a class="skip" href="#form">Skip to the check-in form</a>
 
-<header class="top">
-  <a class="home" href="index.html">Game Design check-ins</a>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Game Design check-ins</a>
   <div class="path-pick">
     <label for="path-select">Path</label>
     <select id="path-select"></select>
   </div>
 </header>
 
-<main>
+<div class="stage">
+  <h1 id="heading">Weekly check-in</h1>
   <nav aria-label="Weeks">
     <ol id="track" class="track"></ol>
   </nav>
+</div>
 
-  <h1 id="heading">Weekly check-in</h1>
-
-  <section class="brief" aria-label="This week">
+<main class="layout">
+  <aside class="brief" aria-label="This week">
+    <h2>This week</h2>
     <dl>
-      <dt>Target for this week</dt>
+      <dt>Target</dt>
       <dd id="target"></dd>
       <dt>Evidence to show</dt>
       <dd id="evidence-ask"></dd>
     </dl>
-    <p><a id="unity-link" href="#" target="_blank" rel="noopener" hidden></a></p>
-  </section>
+    <p><a id="unity-link" class="unity" href="#" target="_blank" rel="noopener" hidden></a></p>
+    <div class="how">
+      <strong>How a check-in works</strong>
+      <ol>
+        <li>Show your evidence.</li>
+        <li>Say what is done, next, and blocking you.</li>
+        <li>Rate your week.</li>
+        <li>Commit to one goal.</li>
+      </ol>
+    </div>
+  </aside>
 
   <form id="form" autocomplete="off">
-    <div class="row">
+    <section class="section" aria-labelledby="s1">
+      <h2 id="s1"><span class="n" aria-hidden="true">1</span>About you</h2>
+      <div class="fields three">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" type="text">
+        </div>
+        <div class="field">
+          <label for="period">Class period <span class="hint">(optional)</span></label>
+          <input id="period" type="text">
+        </div>
+        <div class="field" id="code-field">
+          <label for="code">Class code <span class="hint">(required)</span></label>
+          <input id="code" type="text">
+        </div>
+      </div>
+      <p class="hint" id="code-hint">Your teacher gives you the class code. It is required for every check-in.</p>
+    </section>
+
+    <section class="section" aria-labelledby="s2">
+      <h2 id="s2"><span class="n" aria-hidden="true">2</span>Your week</h2>
+      <div class="fields">
+        <div class="field">
+          <label for="evidence">Evidence you can show</label>
+          <span class="hint">Paste a link, or describe the file or build you will show.</span>
+          <textarea id="evidence" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <label for="blocked">What is blocking me</label>
+          <span class="hint">Write "nothing" if you are not stuck.</span>
+          <textarea id="blocked" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <label for="finished">What I finished</label>
+          <textarea id="finished" rows="4"></textarea>
+        </div>
+        <div class="field">
+          <label for="next">What I am doing next</label>
+          <textarea id="next" rows="4"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="s3">
+      <h2 id="s3"><span class="n" aria-hidden="true">3</span>Think it over</h2>
+      <div class="fields">
+        <div class="field">
+          <label for="q0" id="q0-label"></label>
+          <textarea id="q0" rows="4"></textarea>
+        </div>
+        <div class="field">
+          <label for="q1" id="q1-label"></label>
+          <textarea id="q1" rows="4"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="s4">
+      <h2 id="s4"><span class="n" aria-hidden="true">4</span>Rate your week</h2>
+      <fieldset class="field">
+        <legend class="hint">Pick the one that matches your evidence. Honest answers earn full credit.</legend>
+        <div id="status-options" class="status-options"></div>
+      </fieldset>
+    </section>
+
+    <section class="section" aria-labelledby="s5">
+      <h2 id="s5"><span class="n" aria-hidden="true">5</span>Next week</h2>
       <div class="field">
-        <label for="name">Your name</label>
-        <input id="name" type="text">
+        <label for="goal">My goal for next week</label>
+        <span class="hint">One specific thing you can finish.</span>
+        <textarea id="goal" rows="3"></textarea>
       </div>
-      <div class="field narrow">
-        <label for="period">Class period <span class="hint">(optional)</span></label>
-        <input id="period" type="text">
-      </div>
-    </div>
+    </section>
 
-    <div class="field" id="code-field">
-      <label for="code">Class code</label>
-      <span class="hint">Your teacher gives you this code. It lets you submit.</span>
-      <input id="code" type="text">
-    </div>
-
-    <div class="field">
-      <label for="evidence">Evidence you can show</label>
-      <span class="hint">Paste a link, or describe the file or build you will show.</span>
-      <textarea id="evidence" rows="2"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="finished">What I finished</label>
-      <textarea id="finished" rows="3"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="next">What I am doing next</label>
-      <textarea id="next" rows="3"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="blocked">What is blocking me</label>
-      <span class="hint">Write "nothing" if you are not stuck.</span>
-      <textarea id="blocked" rows="2"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="q0" id="q0-label"></label>
-      <textarea id="q0" rows="3"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="q1" id="q1-label"></label>
-      <textarea id="q1" rows="3"></textarea>
-    </div>
-
-    <fieldset class="field">
-      <legend>My status</legend>
-      <div id="status-options" class="status-options"></div>
-    </fieldset>
-
-    <div class="field">
-      <label for="goal">My goal for next week</label>
-      <span class="hint">One specific thing you can finish.</span>
-      <textarea id="goal" rows="2"></textarea>
-    </div>
+    <p id="message" class="message" role="status" aria-live="polite"></p>
 
     <div class="actions">
       <button type="button" id="submit" class="primary">Submit check-in</button>
       <button type="button" id="copy">Copy check-in</button>
-      <button type="button" id="download">Download check-in</button>
-      <a class="button" href="https://classroom.google.com" target="_blank" rel="noopener">Open Google Classroom</a>
-      <button type="button" id="clear" class="quiet">Clear this week</button>
+      <button type="button" id="download">Download as Word</button>
+      <a class="button" href="https://classroom.google.com" target="_blank" rel="noopener">Google Classroom</a>
     </div>
-    <p id="message" class="message" role="status" aria-live="polite"></p>
-    <p class="note">Your answers are saved in this browser, on this computer, until you submit. Submit sends the check-in to your teacher. If Submit is not available, copy the check-in into Google Classroom or attach the downloaded file. On a shared computer, clear the week after you turn it in.</p>
+    <p class="note">Your answers are saved in this browser, on this computer, until you submit. Submit sends the check-in to your teacher. If Submit is not available, copy the check-in into Google Classroom or attach the downloaded Word file. On a shared computer, clear the week after you turn it in.</p>
+    <p class="clear-row"><button type="button" id="clear" class="quiet">Clear this week</button></p>
   </form>
 </main>
+<div class="page-end"></div>
 
 <script src="config.js"></script>
 <script src="data.js"></script>

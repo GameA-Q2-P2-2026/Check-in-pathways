@@ -144,6 +144,7 @@
       "GAME DESIGN CHECK-IN",
       "Name: " + d.name,
       d.period ? "Class period: " + d.period : null,
+      "Class code: " + d.code,
       "Path: " + p.name + " (" + p.unity + ")",
       "Week: " + week + " of " + p.weeks.length,
       "Target this week: " + w.target,
@@ -167,9 +168,9 @@
     return lines.filter(function (l) { return l !== null; }).join("\n");
   }
 
-  function validate(needCode) {
+  function validate() {
     var d = readForm();
-    if (needCode && !d.code) { say("Enter the class code from your teacher.", true); $("code").focus(); return false; }
+    if (!d.code) { say("Enter the class code from your teacher.", true); $("code").focus(); return false; }
     if (!d.name) { say("Add your name first.", true); $("name").focus(); return false; }
     if (!d.status) { say("Pick a status: green, yellow, or red.", true); document.querySelector('input[name="status"]').focus(); return false; }
     if (!d.finished || !d.next || !d.goal) {
@@ -226,7 +227,7 @@
   }
 
   function submitOnline() {
-    if (!validate(true)) return;
+    if (!validate()) return;
     var btn = $("submit");
     btn.disabled = true;
     say("Sending...");
@@ -251,14 +252,133 @@
     }).catch(function () {
       clearTimeout(timer);
       btn.disabled = false;
-      say("Could not confirm that it was sent. Use Download check-in and give the file to your teacher.", true);
+      say("Could not confirm that it was sent. Use Download as Word and give the file to your teacher.", true);
     });
+  }
+
+  /* ---------- Word (.docx) download, built in the browser with no outside libraries ---------- */
+  var DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  var CRC_TABLE = (function () {
+    var t = [], c, n, k;
+    for (n = 0; n < 256; n++) {
+      c = n;
+      for (k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      t[n] = c >>> 0;
+    }
+    return t;
+  })();
+
+  function crc32(bytes) {
+    var c = 0xFFFFFFFF;
+    for (var i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  function makeZip(files) {
+    var enc = new TextEncoder();
+    var chunks = [], central = [], offset = 0;
+    files.forEach(function (f) {
+      var name = enc.encode(f.name), data = f.data, crc = crc32(data), size = data.length;
+      var local = new Uint8Array(30 + name.length), lv = new DataView(local.buffer);
+      lv.setUint32(0, 0x04034b50, true); lv.setUint16(4, 20, true); lv.setUint16(6, 0x0800, true);
+      lv.setUint16(8, 0, true); lv.setUint16(10, 0, true); lv.setUint16(12, 0x21, true);
+      lv.setUint32(14, crc, true); lv.setUint32(18, size, true); lv.setUint32(22, size, true);
+      lv.setUint16(26, name.length, true); lv.setUint16(28, 0, true);
+      local.set(name, 30);
+      chunks.push(local, data);
+      var cen = new Uint8Array(46 + name.length), cv = new DataView(cen.buffer);
+      cv.setUint32(0, 0x02014b50, true); cv.setUint16(4, 20, true); cv.setUint16(6, 20, true);
+      cv.setUint16(8, 0x0800, true); cv.setUint16(10, 0, true); cv.setUint16(12, 0, true); cv.setUint16(14, 0x21, true);
+      cv.setUint32(16, crc, true); cv.setUint32(20, size, true); cv.setUint32(24, size, true);
+      cv.setUint16(28, name.length, true); cv.setUint32(42, offset, true);
+      cen.set(name, 46);
+      central.push(cen);
+      offset += local.length + size;
+    });
+    var cenSize = 0;
+    central.forEach(function (c) { cenSize += c.length; });
+    var end = new Uint8Array(22), ev = new DataView(end.buffer);
+    ev.setUint32(0, 0x06054b50, true);
+    ev.setUint16(8, files.length, true); ev.setUint16(10, files.length, true);
+    ev.setUint32(12, cenSize, true); ev.setUint32(16, offset, true);
+    return new Blob(chunks.concat(central, [end]), { type: DOCX_MIME });
+  }
+
+  function xmlEscape(text) {
+    return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function wordRuns(text, opts) {
+    opts = opts || {};
+    var rpr = "<w:rPr>" + (opts.bold ? "<w:b/>" : "") + '<w:sz w:val="' + (opts.size || 22) + '"/>' +
+      (opts.color ? '<w:color w:val="' + opts.color + '"/>' : "") + "</w:rPr>";
+    return String(text).split(/\r?\n/).map(function (line, i) {
+      return "<w:r>" + rpr + (i ? "<w:br/>" : "") + '<w:t xml:space="preserve">' + xmlEscape(line) + "</w:t></w:r>";
+    }).join("");
+  }
+
+  function wordCell(width, text, opts) {
+    opts = opts || {};
+    return '<w:tc><w:tcPr><w:tcW w:w="' + width + '" w:type="dxa"/>' +
+      (opts.fill ? '<w:shd w:val="clear" w:color="auto" w:fill="' + opts.fill + '"/>' : "") +
+      '</w:tcPr><w:p><w:pPr><w:spacing w:before="60" w:after="60"/></w:pPr>' + wordRuns(text, opts) + "</w:p></w:tc>";
+  }
+
+  function buildDocx() {
+    var p = D.paths[pathId];
+    var w = p.weeks[week - 1];
+    var d = readForm();
+    var s = statusLabel(d.status);
+    var rows = [
+      ["Name", d.name],
+      ["Class period", d.period || ""],
+      ["Class code", d.code],
+      ["Path", p.name + " (" + p.unity + ")"],
+      ["Week", week + " of " + p.weeks.length],
+      ["Target this week", w.target],
+      ["Evidence I can show", d.evidence || "(none yet)"],
+      ["What I finished", d.finished],
+      ["What I am doing next", d.next],
+      ["What is blocking me", d.blocked || "Nothing"],
+      [w.questions[0], d.q0 || ""],
+      [w.questions[1], d.q1 || ""],
+      ["My status", s ? s.label + " - " + s.text : ""],
+      ["My goal for next week", d.goal]
+    ];
+    var border = ["top", "left", "bottom", "right", "insideH", "insideV"].map(function (n) {
+      return '<w:' + n + ' w:val="single" w:sz="4" w:space="0" w:color="999999"/>';
+    }).join("");
+    var table = '<w:tbl><w:tblPr><w:tblW w:w="9360" w:type="dxa"/><w:tblBorders>' + border +
+      '</w:tblBorders><w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid><w:gridCol w:w="2900"/><w:gridCol w:w="6460"/></w:tblGrid>' +
+      rows.map(function (r) {
+        return "<w:tr>" + wordCell(2900, r[0], { bold: true, size: 21, fill: "E8E4D8" }) + wordCell(6460, r[1], { size: 22 }) + "</w:tr>";
+      }).join("") + "</w:tbl>";
+    var body =
+      '<w:p><w:pPr><w:spacing w:after="80"/></w:pPr>' + wordRuns("Game Design Check-In", { bold: true, size: 40 }) + "</w:p>" +
+      '<w:p><w:pPr><w:spacing w:after="200"/></w:pPr>' + wordRuns(p.name + ": week " + week + " check-in", { size: 26, color: "4A516A" }) + "</w:p>" +
+      table +
+      '<w:p/><w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1080" w:right="1440" w:bottom="1080" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/></w:sectPr>';
+    var documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+      '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>' + body + "</w:body></w:document>";
+    var types = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+      '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
+      '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
+      '<Default Extension="xml" ContentType="application/xml"/>' +
+      '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>';
+    var rels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+      '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+      '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>';
+    var enc = new TextEncoder();
+    return makeZip([
+      { name: "[Content_Types].xml", data: enc.encode(types) },
+      { name: "_rels/.rels", data: enc.encode(rels) },
+      { name: "word/document.xml", data: enc.encode(documentXml) }
+    ]);
   }
 
   function init() {
     var online = !!CFG.submitUrl;
     $("submit").hidden = !online;
-    $("code-field").hidden = !online;
     if (!online) $("copy").className = "primary";
     $("submit").addEventListener("click", submitOnline);
 
@@ -308,7 +428,7 @@
       copyText(buildText()).then(function () {
         say("Copied. Paste it into the Week " + week + " check-in in Google Classroom.");
       }, function () {
-        say("Copy was blocked. Use Download instead and attach the file in Google Classroom.", true);
+        say("Copy was blocked. Use Download as Word instead and attach the file in Google Classroom.", true);
       });
     });
 
@@ -316,11 +436,11 @@
       if (!validate()) return;
       var d = readForm();
       var safeName = d.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "student";
-      var blob = new Blob([buildText() + "\n"], { type: "text/plain" });
+      var blob = buildDocx();
       var url = URL.createObjectURL(blob);
       var a = document.createElement("a");
       a.href = url;
-      a.download = safeName + "-" + pathId + "-week" + week + "-checkin.txt";
+      a.download = safeName + "-" + pathId + "-week" + week + "-checkin.docx";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

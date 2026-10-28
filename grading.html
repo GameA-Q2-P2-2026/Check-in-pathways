@@ -6,81 +6,106 @@
 <title>How you are graded</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="doc">
+<body>
 <a class="skip" href="#content">Skip to the grading guide</a>
-<header class="top">
-  <a class="home" href="index.html">Game Design check-ins</a>
+
+<header class="bar">
+  <a class="brand" href="index.html"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Game Design check-ins</a>
+  <nav aria-label="Site">
+    <a href="index.html">Check-ins</a>
+  </nav>
 </header>
-<main id="content">
+
+<section class="doc-hero">
   <h1>How you are graded</h1>
   <p class="lede">The course is worth 1000 points. Unity Essentials and your path add up to 800 points, and the final group project is worth 200. Your percentage is your points divided by 1000.</p>
+  <div class="pointsbar" role="img" aria-label="1000 points: Unity Essentials 100, weekly check-ins 200, path work 500, final group project 200">
+    <div class="row">
+      <div class="seg e">Essentials<small>100</small></div>
+      <div class="seg c">Check-ins<small>200</small></div>
+      <div class="seg p">Path work<small>500</small></div>
+      <div class="seg f">Final project<small>200</small></div>
+    </div>
+    <div class="brace" aria-hidden="true">
+      <span class="b800">800 points: Essentials and your path</span>
+      <span class="b200">200 points</span>
+    </div>
+  </div>
+</section>
 
-  <table>
-    <caption>Where the 1000 points come from</caption>
-    <thead><tr><th scope="col">Category</th><th scope="col">Points</th><th scope="col">What it is</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">Unity Essentials</th><td>100</td><td>Finish the shared starting pathway and show a first scene.</td></tr>
-      <tr><th scope="row">Weekly check-ins</th><td>200</td><td>Seven check-ins: two in Essentials and five on your path.</td></tr>
-      <tr><th scope="row">Path work</th><td>500</td><td>Your weekly progress on your path, 100 points a week.</td></tr>
-      <tr><th scope="row">Essentials and path subtotal</th><td>800</td><td></td></tr>
-      <tr><th scope="row">Final group project</th><td>200</td><td>The team game, your own contribution, teamwork, and your reflection and showcase.</td></tr>
-    </tbody>
-  </table>
+<main id="content" class="cards">
+  <section class="card c-essentials">
+    <h2>Unity Essentials</h2>
+    <p class="pts">100 points</p>
+    <ul>
+      <li><strong>Pathway completion, 60 points:</strong> the share of Unity Essentials you finish.</li>
+      <li><strong>Checkpoint scene, 40 points:</strong> a simple scene that runs, has lighting, and has one interactive element, and you can explain your choices.</li>
+    </ul>
+  </section>
 
-  <h2>Unity Essentials (100 points)</h2>
-  <ul>
-    <li><strong>Pathway completion, 60 points:</strong> the share of Unity Essentials you finish.</li>
-    <li><strong>Checkpoint scene, 40 points:</strong> a simple scene that runs, has lighting, and has one interactive element, and you can explain your choices.</li>
-  </ul>
+  <section class="card c-checkins">
+    <h2>Weekly check-ins</h2>
+    <p class="pts">200 points</p>
+    <p>Seven check-ins: two in Essentials and five on your path. Each path check-in is worth 32 points and each Essentials check-in is worth 20.</p>
+    <table>
+      <thead><tr><th scope="col">What counts</th><th scope="col" class="num">Path</th><th scope="col" class="num">Essentials</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Every part is filled in by check-in day</th><td class="num">16</td><td class="num">10</td></tr>
+        <tr><th scope="row">You show your evidence, or honestly say what is not finished</th><td class="num">8</td><td class="num">5</td></tr>
+        <tr><th scope="row">Your color matches your evidence, and your goal is specific enough to finish in a week</th><td class="num">8</td><td class="num">5</td></tr>
+      </tbody>
+    </table>
+    <p>Your color is never graded. Reporting yellow or red honestly earns full credit, and it is how your teacher knows to help.</p>
+  </section>
 
-  <h2>Weekly check-ins (200 points)</h2>
-  <p>Each path check-in is worth 32 points. Each Essentials check-in is worth 20.</p>
-  <table>
-    <thead><tr><th scope="col">What counts</th><th scope="col">Path check-in</th><th scope="col">Essentials check-in</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">Every part is filled in by check-in day</th><td>16</td><td>10</td></tr>
-      <tr><th scope="row">You show your evidence, or honestly say what is not finished</th><td>8</td><td>5</td></tr>
-      <tr><th scope="row">Your color matches your evidence, and your goal is specific enough to finish in a week</th><td>8</td><td>5</td></tr>
-    </tbody>
-  </table>
-  <p>Your color is never graded. Reporting yellow or red honestly earns full credit, and it is how your teacher knows to help.</p>
+  <section class="card c-path">
+    <h2>Path work</h2>
+    <p class="pts">500 points: 100 each week</p>
+    <table>
+      <thead><tr><th scope="col" class="num">Score</th><th scope="col">What your evidence shows</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" class="num">100</th><td>The week's target is met, and the work is clearly yours</td></tr>
+        <tr><th scope="row" class="num">85</th><td>Target met, but the evidence is thin or you cannot explain it</td></tr>
+        <tr><th scope="row" class="num">75</th><td>About three-quarters of the target</td></tr>
+        <tr><th scope="row" class="num">50</th><td>About half of the target</td></tr>
+        <tr><th scope="row" class="num">30</th><td>Started, with something real to show</td></tr>
+        <tr><th scope="row" class="num">10 or 0</th><td>Minimal work, or none</td></tr>
+      </tbody>
+    </table>
+    <p>If you cannot explain something you turned in, the week scores 85 or lower until you can. Be ready to explain your own work.</p>
+  </section>
 
-  <h2>Path work (100 points a week)</h2>
-  <table>
-    <thead><tr><th scope="col">Score</th><th scope="col">What your evidence shows</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">100</th><td>The week's target is met, and the work is clearly yours</td></tr>
-      <tr><th scope="row">85</th><td>Target met, but the evidence is thin or you cannot explain it</td></tr>
-      <tr><th scope="row">75</th><td>About three-quarters of the target</td></tr>
-      <tr><th scope="row">50</th><td>About half of the target</td></tr>
-      <tr><th scope="row">30</th><td>Started, with something real to show</td></tr>
-      <tr><th scope="row">10 or 0</th><td>Minimal work, or none</td></tr>
-    </tbody>
-  </table>
-  <p>If you cannot explain something you turned in, the week scores 85 or lower until you can. Be ready to explain your own work.</p>
+  <section class="card c-final">
+    <h2>Final group project</h2>
+    <p class="pts">200 points</p>
+    <ul>
+      <li><strong>Team product, 60 points:</strong> the game runs, the parts fit together, and it is finished and tested. Your whole team gets the same score.</li>
+      <li><strong>Your contribution, 60 points:</strong> you deliver what your role promised, the work is good, and you work steadily for both weeks.</li>
+      <li><strong>Teamwork, 30 points:</strong> teammates rate you as reliable, you communicate, and you help others.</li>
+      <li><strong>Written reflection, 25 points:</strong> five prompts, answered with specific examples.</li>
+      <li><strong>Showcase demo, 25 points:</strong> show the game running, explain your role, name a problem you solved, answer a question, and finish on time.</li>
+    </ul>
+  </section>
 
-  <h2>Final group project (200 points)</h2>
-  <ul>
-    <li><strong>Team product, 60 points:</strong> the game runs, the parts fit together, and it is finished and tested. Your whole team gets the same score.</li>
-    <li><strong>Your contribution, 60 points:</strong> you deliver what your role promised, the work is good, and you work steadily for both weeks.</li>
-    <li><strong>Teamwork, 30 points:</strong> teammates rate you as reliable, you communicate, and you help others.</li>
-    <li><strong>Written reflection, 25 points:</strong> five prompts, answered with specific examples.</li>
-    <li><strong>Showcase demo, 25 points:</strong> show the game running, explain your role, name a problem you solved, answer a question, and finish on time.</li>
-  </ul>
-
-  <h2>Letter grades</h2>
-  <table>
-    <thead><tr><th scope="col">Percent</th><th scope="col">Points</th><th scope="col">Letter</th></tr></thead>
-    <tbody>
-      <tr><td>90 to 100</td><td>900 to 1000</td><th scope="row">A</th></tr>
-      <tr><td>80 to 89</td><td>800 to 899</td><th scope="row">B</th></tr>
-      <tr><td>70 to 79</td><td>700 to 799</td><th scope="row">C</th></tr>
-      <tr><td>60 to 69</td><td>600 to 699</td><th scope="row">D</th></tr>
-      <tr><td>Below 60</td><td>Below 600</td><th scope="row">F</th></tr>
-    </tbody>
-  </table>
-
-  <p class="note">Your teacher may adjust late work, revision, and absence rules for your class. Ask if you are not sure.</p>
+  <section class="card c-letters span-2">
+    <h2>Letter grades</h2>
+    <table>
+      <thead><tr><th scope="col">Percent</th><th scope="col">Points out of 1000</th><th scope="col">Letter</th></tr></thead>
+      <tbody>
+        <tr><td>90 to 100</td><td>900 to 1000</td><th scope="row">A</th></tr>
+        <tr><td>80 to 89</td><td>800 to 899</td><th scope="row">B</th></tr>
+        <tr><td>70 to 79</td><td>700 to 799</td><th scope="row">C</th></tr>
+        <tr><td>60 to 69</td><td>600 to 699</td><th scope="row">D</th></tr>
+        <tr><td>Below 60</td><td>Below 600</td><th scope="row">F</th></tr>
+      </tbody>
+    </table>
+    <p>Your teacher may adjust late work, revision, and absence rules for your class. Ask if you are not sure.</p>
+  </section>
 </main>
+
+<footer class="foot">
+  <span>Game Design weekly check-ins</span>
+  <a href="index.html">Back to the check-ins</a>
+</footer>
 </body>
 </html>

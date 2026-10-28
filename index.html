@@ -6,56 +6,89 @@
 <title>Game Design check-ins</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="start">
-<a class="skip" href="#paths">Skip to the paths</a>
+<body>
+<a class="skip" href="#paths">Skip to the check-ins</a>
+
+<header class="bar">
+  <a class="brand" href="index.html"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Game Design check-ins</a>
+  <nav aria-label="Site">
+    <a href="grading.html">How you are graded</a>
+  </nav>
+</header>
+
 <main>
-  <h1>Game Design weekly check-ins</h1>
-  <p class="lede">Once a week, show your teacher what you finished, say what is next, and rate how it is going. Start with Unity Essentials, then check in on the path you choose.</p>
+  <section class="hero" aria-labelledby="top-title">
+    <div>
+      <p class="eyebrow">Game Design with Unity</p>
+      <h1 id="top-title">Weekly <span>check-ins</span></h1>
+      <p class="lede">Show your work, say where you are, and set your next goal. It takes a few minutes, and it helps your teacher help you.</p>
+      <a class="btn big yellow" href="checkin.html?path=essentials&amp;week=1">Start with Unity Essentials</a>
+    </div>
+    <ol class="steps" aria-label="How a check-in works">
+      <li><b>Show</b><span>the work you finished this week.</span></li>
+      <li><b>Say</b><span>what is done, what is next, and what is blocking you.</span></li>
+      <li><b>Rate</b><span>your week: green, yellow, or red.</span></li>
+      <li><b>Commit</b><span>to one goal for next week.</span></li>
+    </ol>
+  </section>
 
-  <ol class="how">
-    <li><strong>Show</strong> the work you finished this week.</li>
-    <li><strong>Say</strong> what you finished, what is next, and what is blocking you.</li>
-    <li><strong>Rate</strong> your week: green, yellow, or red.</li>
-    <li><strong>Commit</strong> to one goal for next week.</li>
-  </ol>
-
-  <section id="paths" aria-label="Choose your check-in">
+  <section class="picker" id="paths" aria-labelledby="pick-title">
+    <h2 id="pick-title">Pick your check-in</h2>
     <ul class="paths">
       <li data-path="essentials" class="wide">
-        <h2>Unity Essentials</h2>
-        <p>Everyone starts here (1 to 2 weeks)</p>
-        <a class="button" href="checkin.html?path=essentials&amp;week=1">Start check-ins</a>
-        <a href="assignments/Unity-Essentials-Check-Ins.docx">Assignment sheet (Word)</a>
+        <div class="info">
+          <h3>Unity Essentials</h3>
+          <p>Everyone starts here. It takes one to two weeks.</p>
+          <span class="chip">2 check-ins</span>
+        </div>
+        <div class="card-actions">
+          <a class="btn primary" href="checkin.html?path=essentials&amp;week=1">Start check-ins</a>
+          <a href="assignments/Unity-Essentials-Check-Ins.docx">Assignment sheet (Word)</a>
+        </div>
       </li>
       <li data-path="design">
-        <h2>Design</h2>
-        <p>Unity Creative Core</p>
-        <a class="button" href="checkin.html?path=design&amp;week=1">Start check-ins</a>
-        <a href="assignments/Design-Weekly-Check-Ins.docx">Assignment sheet (Word)</a>
+        <h3>Design</h3>
+        <p>Unity Creative Core. The look and feel of a game.</p>
+        <span class="chip">5 weekly check-ins</span>
+        <div class="card-actions">
+          <a class="btn primary" href="checkin.html?path=design&amp;week=1">Start check-ins</a>
+          <a href="assignments/Design-Weekly-Check-Ins.docx">Word sheet</a>
+        </div>
       </li>
       <li data-path="programming">
-        <h2>Programming</h2>
-        <p>Unity Junior Programmer</p>
-        <a class="button" href="checkin.html?path=programming&amp;week=1">Start check-ins</a>
-        <a href="assignments/Programming-Weekly-Check-Ins.docx">Assignment sheet (Word)</a>
+        <h3>Programming</h3>
+        <p>Unity Junior Programmer. Code that makes a game work.</p>
+        <span class="chip">5 weekly check-ins</span>
+        <div class="card-actions">
+          <a class="btn primary" href="checkin.html?path=programming&amp;week=1">Start check-ins</a>
+          <a href="assignments/Programming-Weekly-Check-Ins.docx">Word sheet</a>
+        </div>
       </li>
       <li data-path="development">
-        <h2>Development / Management</h2>
-        <p>Unity Game Development</p>
-        <a class="button" href="checkin.html?path=development&amp;week=1">Start check-ins</a>
-        <a href="assignments/Development-Management-Weekly-Check-Ins.docx">Assignment sheet (Word)</a>
+        <h3>Development / Management</h3>
+        <p>Unity Game Development. How a project comes together and gets finished.</p>
+        <span class="chip">5 weekly check-ins</span>
+        <div class="card-actions">
+          <a class="btn primary" href="checkin.html?path=development&amp;week=1">Start check-ins</a>
+          <a href="assignments/Development-Management-Weekly-Check-Ins.docx">Word sheet</a>
+        </div>
       </li>
       <li data-path="writing">
-        <h2>Game Writing</h2>
-        <p>Twine and Unity</p>
-        <a class="button" href="checkin.html?path=writing&amp;week=1">Start check-ins</a>
-        <a href="assignments/Game-Writing-Weekly-Check-Ins.docx">Assignment sheet (Word)</a>
+        <h3>Game Writing</h3>
+        <p>Twine and Unity. Stories where the player's choices matter.</p>
+        <span class="chip">5 weekly check-ins</span>
+        <div class="card-actions">
+          <a class="btn primary" href="checkin.html?path=writing&amp;week=1">Start check-ins</a>
+          <a href="assignments/Game-Writing-Weekly-Check-Ins.docx">Word sheet</a>
+        </div>
       </li>
     </ul>
   </section>
-
-  <p class="note"><a href="grading.html">How you are graded</a></p>
-  <p class="note">Your draft is saved on your own computer until you submit it. If Submit is not available, turn in your check-in through Google Classroom.</p>
 </main>
+
+<footer class="foot">
+  <span>Your draft is saved on your own computer until you submit it. If Submit is not available, turn in your check-in through Google Classroom.</span>
+  <a href="grading.html">How you are graded</a>
+</footer>
 </body>
 </html>

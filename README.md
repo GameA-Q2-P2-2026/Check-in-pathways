@@ -30,8 +30,10 @@ git push -u origin main
 
 ## Turn on Submit
 
-Until `config.js` has a submit address, students see Copy and Download buttons
-for turning in through Google Classroom. To turn on Submit, follow
+Students must enter the class code your teacher gives them on every check-in.
+Until `config.js` has a submit address, students see Copy and Download as Word
+buttons for turning in through Google Classroom (the download is a .docx file
+that includes the class code). To turn on Submit, follow
 `TEACHER-SETUP.md` in the separate teacher-private package, then paste the
 address into `config.js` and commit it.
 

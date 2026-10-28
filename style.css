@@ -287,3 +287,5 @@ td.num, th.num { text-align: right; white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+#code-hint { margin: 0.8rem 0 1.4rem; }

@@ -30,7 +30,8 @@ git push -u origin main
 
 ## Turn on Submit
 
-Students must enter the class code your teacher gives them on every check-in.
+Students must enter the class code your teacher gives them, their class period,
+and a link to their GitHub repository on every check-in.
 Until `config.js` has a submit address, students see Copy and Download as Word
 buttons for turning in through Google Classroom (the download is a .docx file
 that includes the class code). To turn on Submit, follow

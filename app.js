@@ -34,7 +34,7 @@
   }
 
   function readForm() {
-    var data = { name: $("name").value.trim(), period: $("period").value.trim(), code: $("code").value.trim() };
+    var data = { name: $("name").value.trim(), period: $("period").value.trim(), code: $("code").value.trim(), repo: $("repo").value.trim() };
     FIELDS.forEach(function (f) { data[f] = $(f).value.trim(); });
     var checked = document.querySelector('input[name="status"]:checked');
     data.status = checked ? checked.value : "";
@@ -53,6 +53,7 @@
     store("name", d.name);
     store("period", d.period);
     store("code", d.code);
+    store("repo", d.repo);
     store(weekKey(pathId, week), d);
     remove(weekKey(pathId, week) + ":sent");
     renderTrack();
@@ -63,6 +64,7 @@
     $("name").value = load("name") || "";
     $("period").value = load("period") || "";
     $("code").value = load("code") || "";
+    $("repo").value = load("repo") || "";
     FIELDS.forEach(function (f) { $(f).value = saved[f] || ""; });
     var radios = document.querySelectorAll('input[name="status"]');
     Array.prototype.forEach.call(radios, function (r) { r.checked = (r.value === saved.status); });
@@ -145,6 +147,7 @@
       "Name: " + d.name,
       "Class period: " + d.period,
       "Class code: " + d.code,
+      "GitHub repository: " + d.repo,
       "Path: " + p.name + " (" + p.unity + ")",
       "Week: " + week + " of " + p.weeks.length,
       "Target this week: " + w.target,
@@ -168,11 +171,15 @@
     return lines.filter(function (l) { return l !== null; }).join("\n");
   }
 
+  var REPO_PATTERN = /^https:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(\/.*)?$/;
+
   function validate() {
     var d = readForm();
     if (!d.name) { say("Add your name first.", true); $("name").focus(); return false; }
     if (!d.period) { say("Enter your class period.", true); $("period").focus(); return false; }
     if (!d.code) { say("Enter the class code from your teacher.", true); $("code").focus(); return false; }
+    if (!d.repo) { say("Add the link to your GitHub repository.", true); $("repo").focus(); return false; }
+    if (!REPO_PATTERN.test(d.repo)) { say("The repository link should look like https://github.com/yourname/your-project", true); $("repo").focus(); return false; }
     if (!d.status) { say("Pick a status: green, yellow, or red.", true); document.querySelector('input[name="status"]').focus(); return false; }
     if (!d.finished || !d.next || !d.goal) {
       say("Fill in what you finished, what you are doing next, and your goal for next week.", true);
@@ -207,6 +214,7 @@
     var d = readForm();
     return {
       code: d.code,
+      repo: d.repo,
       name: d.name,
       period: d.period,
       path: pathId,
@@ -334,6 +342,7 @@
       ["Name", d.name],
       ["Class period", d.period],
       ["Class code", d.code],
+      ["GitHub repository", d.repo],
       ["Path", p.name + " (" + p.unity + ")"],
       ["Week", week + " of " + p.weeks.length],
       ["Target this week", w.target],

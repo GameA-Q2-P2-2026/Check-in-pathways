@@ -2,5 +2,5 @@
 window.CHECKIN_CONFIG = {
   // Paste the Web app URL from the Apps Script setup (see TEACHER-SETUP.md, step 2).
   // While this is blank, students see Copy and Download buttons instead of Submit.
-  submitUrl: "https://script.google.com/macros/s/AKfycbyF5TQLPR1HwLaH4mT1cOsmChZiSqE5O4EZcIFJkJUuVpObuDuHYgHiD4VWoOx0eNhkJQ/exec"
+  submitUrl: ""
 };

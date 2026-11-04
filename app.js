@@ -56,6 +56,7 @@
     store("repo", d.repo);
     store(weekKey(pathId, week), d);
     remove(weekKey(pathId, week) + ":sent");
+    remove(weekKey(pathId, week) + ":file");
     renderTrack();
   }
 
@@ -92,7 +93,9 @@
       note.className = "tile-note";
       var s = saved && statusLabel(saved.status);
       var sent = load(weekKey(pathId, w) + ":sent");
+      var filed = load(weekKey(pathId, w) + ":file");
       if (sent) note.textContent = "Submitted";
+      else if (filed) note.textContent = "Downloaded";
       else if (s) note.textContent = s.label;
       else if (hasContent(saved)) note.textContent = "Draft";
       else note.textContent = "Not started";
@@ -235,9 +238,39 @@
     };
   }
 
-  function submitOnline() {
+  function downloadDocx() {
+    var d = readForm();
+    var safeName = d.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "student";
+    var fileName = safeName + "-" + pathId + "-week" + week + "-checkin.docx";
+    var url = URL.createObjectURL(buildDocx());
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    store(weekKey(pathId, week) + ":file", new Date().toISOString());
+    return fileName;
+  }
+
+  function turnInReminder(fileName) {
+    return "Now turn in your Word file (" + fileName + "): open the Week " + week +
+      " check-in in Google Classroom and attach it. Your check-in is not finished until you do.";
+  }
+
+  function submitCheckin() {
     if (!validate()) return;
     var btn = $("submit");
+
+    // No online submit set up: Submit just downloads the Word file.
+    if (!CFG.submitUrl) {
+      var only = downloadDocx();
+      renderTrack();
+      say("Your check-in was downloaded. " + turnInReminder(only));
+      return;
+    }
+
     btn.disabled = true;
     say("Sending...");
     var controller = new AbortController();
@@ -253,15 +286,18 @@
       btn.disabled = false;
       if (result && result.ok) {
         store(weekKey(pathId, week) + ":sent", new Date().toISOString());
+        var f = downloadDocx();
         renderTrack();
-        say("Submitted. Your teacher can see this check-in. You can edit and submit again if you need to fix something.");
+        say("Submitted to your teacher, and your Word file was downloaded. " + turnInReminder(f));
       } else {
         say((result && result.error) || "The check-in was not accepted. Check your class code and try again.", true);
       }
     }).catch(function () {
       clearTimeout(timer);
       btn.disabled = false;
-      say("Could not confirm that it was sent. Use Download as Word and give the file to your teacher.", true);
+      var f = downloadDocx();
+      renderTrack();
+      say("Could not confirm that your check-in reached your teacher, but your Word file was downloaded. " + turnInReminder(f), true);
     });
   }
 
@@ -387,10 +423,7 @@
   }
 
   function init() {
-    var online = !!CFG.submitUrl;
-    $("submit").hidden = !online;
-    if (!online) $("copy").className = "primary";
-    $("submit").addEventListener("click", submitOnline);
+    $("submit").addEventListener("click", submitCheckin);
 
     var select = $("path-select");
     D.order.forEach(function (id) {
@@ -438,30 +471,16 @@
       copyText(buildText()).then(function () {
         say("Copied. Paste it into the Week " + week + " check-in in Google Classroom.");
       }, function () {
-        say("Copy was blocked. Use Download as Word instead and attach the file in Google Classroom.", true);
+        say("Copy was blocked. Press Submit instead to download your check-in as a Word file.", true);
       });
     });
 
-    $("download").addEventListener("click", function () {
-      if (!validate()) return;
-      var d = readForm();
-      var safeName = d.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "student";
-      var blob = buildDocx();
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.href = url;
-      a.download = safeName + "-" + pathId + "-week" + week + "-checkin.docx";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      say("Downloaded. Attach the file to the Week " + week + " check-in in Google Classroom.");
-    });
 
     $("clear").addEventListener("click", function () {
       if (!window.confirm("Clear everything you wrote for this week on this computer?")) return;
       remove(weekKey(pathId, week));
       remove(weekKey(pathId, week) + ":sent");
+      remove(weekKey(pathId, week) + ":file");
       fillForm();
       renderTrack();
       say("This week was cleared.");

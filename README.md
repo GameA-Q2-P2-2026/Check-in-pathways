@@ -28,13 +28,14 @@ git remote add origin https://github.com/YOUR-NAME-OR-ORG/REPOSITORY-NAME.git
 git push -u origin main
 ```
 
-## Turn on Submit
+## Submit and the Word file
 
 Students must enter the class code your teacher gives them, their class period,
 and a link to their GitHub repository on every check-in.
-Until `config.js` has a submit address, students see Copy and Download as Word
-buttons for turning in through Google Classroom (the download is a .docx file
-that includes the class code). To turn on Submit, follow
+
+Pressing Submit downloads the check-in as a Word (.docx) file, and students turn
+that file in on Google Classroom. Until `config.js` has a submit address, Submit
+only downloads the file. To also send each check-in to your Google Sheet, follow
 `TEACHER-SETUP.md` in the separate teacher-private package, then paste the
 address into `config.js` and commit it.
 

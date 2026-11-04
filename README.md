@@ -34,10 +34,20 @@ git push -u origin main
 ### If a deployment is slow or times out
 
 GitHub Pages is sometimes slow to publish, even for a small site like this one.
-The "Deploy site" workflow waits up to 30 minutes instead of 10. If a run still
-fails with "Timeout reached, aborting!", check githubstatus.com, wait a few
-minutes, and use Re-run all jobs on the failed run. If a new run complains that
-another deployment is in progress, wait 10 to 15 minutes and try again.
+The "Deploy site" workflow packages the site once, then tries to publish it up to
+three times, waiting two minutes between attempts. (GitHub's deploy action stops
+each attempt after 10 minutes, and that cannot be made longer.)
+
+If every attempt fails with "Timeout reached, aborting!", check githubstatus.com,
+wait a while, and start a fresh run: Actions tab > Deploy site > Run workflow.
+A warning that "Node.js 20 is deprecated" is harmless and is not the cause of a
+failure.
+
+If a run fails with "Multiple artifacts named github-pages were unexpectedly
+found", that run packaged the site twice (for example after a re-run of an older
+version of this workflow). It cannot be repaired. Start a fresh run with Run
+workflow instead. If a new run says another deployment is already in progress,
+wait 10 to 15 minutes and try again.
 
 ## Submit and the Word file
 

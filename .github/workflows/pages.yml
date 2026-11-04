@@ -1,6 +1,6 @@
 # Publishes the site to GitHub Pages.
 # In the repository, open Settings > Pages and set Source to "GitHub Actions".
-# You can also run it by hand: Actions tab > Deploy site > Run workflow.
+# Start a fresh run any time: Actions tab > Deploy site > Run workflow.
 name: Deploy site
 
 on:
@@ -19,12 +19,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  # Job 1: package the site once. Because this is its own job, re-running a
+  # failed deploy does not package the site a second time.
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 10
     steps:
       - name: Check out the site files
         uses: actions/checkout@v4
@@ -34,10 +33,45 @@ jobs:
         with:
           path: .
 
-      - name: Deploy to GitHub Pages
-        id: deployment
+  # Job 2: publish the package. GitHub Pages is sometimes slow, and the deploy
+  # action gives up after 10 minutes (its maximum), so this job tries up to
+  # three times, waiting two minutes between attempts.
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.attempt1.outputs.page_url || steps.attempt2.outputs.page_url || steps.attempt3.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages (attempt 1)
+        id: attempt1
+        continue-on-error: true
         uses: actions/deploy-pages@v5
-        with:
-          # GitHub Pages is sometimes slow to publish. Wait up to 30 minutes
-          # instead of the default 10 before giving up.
-          timeout: 1800000
+
+      - name: Wait before attempt 2
+        if: steps.attempt1.outcome == 'failure'
+        run: sleep 120
+
+      - name: Deploy to GitHub Pages (attempt 2)
+        id: attempt2
+        if: steps.attempt1.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+
+      - name: Wait before attempt 3
+        if: steps.attempt1.outcome == 'failure' && steps.attempt2.outcome == 'failure'
+        run: sleep 120
+
+      - name: Deploy to GitHub Pages (attempt 3)
+        id: attempt3
+        if: steps.attempt1.outcome == 'failure' && steps.attempt2.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+
+      - name: Report failure if every attempt failed
+        if: steps.attempt1.outcome == 'failure' && steps.attempt2.outcome == 'failure' && steps.attempt3.outcome == 'failure'
+        run: |
+          echo "GitHub Pages did not finish publishing after three attempts."
+          echo "Check githubstatus.com, then start a fresh run with Run workflow."
+          exit 1

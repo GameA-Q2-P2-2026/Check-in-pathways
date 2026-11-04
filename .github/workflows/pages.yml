@@ -1,0 +1,43 @@
+# Publishes the site to GitHub Pages.
+# In the repository, open Settings > Pages and set Source to "GitHub Actions".
+# You can also run it by hand: Actions tab > Deploy site > Run workflow.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time, and never cancel one that is in progress.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the site files
+        uses: actions/checkout@v4
+
+      - name: Package the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+        with:
+          # GitHub Pages is sometimes slow to publish. Wait up to 30 minutes
+          # instead of the default 10 before giving up.
+          timeout: 1800000

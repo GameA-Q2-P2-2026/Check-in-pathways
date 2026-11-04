@@ -12,9 +12,12 @@ There is no build step. Every file here is served as is by GitHub Pages.
 ## Publish it
 
 1. Push these files to the root of a public repository on the `main` branch.
-2. In the repository, open Settings > Pages. Under "Build and deployment" choose
-   "Deploy from a branch", select `main` and `/ (root)`, and save.
-3. After a minute the site is live at
+   Keep the hidden `.github` folder: it holds the publishing workflow.
+2. In the repository, open Settings > Pages. Under "Build and deployment", set
+   Source to **GitHub Actions** and save.
+3. Open the Actions tab. The "Deploy site" workflow runs on every push to
+   `main`. You can also start it by hand with Run workflow.
+4. After a few minutes the site is live at
    `https://YOUR-NAME-OR-ORG.github.io/REPOSITORY-NAME/`.
 
 From a terminal:
@@ -27,6 +30,14 @@ git branch -M main
 git remote add origin https://github.com/YOUR-NAME-OR-ORG/REPOSITORY-NAME.git
 git push -u origin main
 ```
+
+### If a deployment is slow or times out
+
+GitHub Pages is sometimes slow to publish, even for a small site like this one.
+The "Deploy site" workflow waits up to 30 minutes instead of 10. If a run still
+fails with "Timeout reached, aborting!", check githubstatus.com, wait a few
+minutes, and use Re-run all jobs on the failed run. If a new run complains that
+another deployment is in progress, wait 10 to 15 minutes and try again.
 
 ## Submit and the Word file
 

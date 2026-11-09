@@ -12,7 +12,7 @@
   var pathId = params.get("path");
   if (!D.paths[pathId]) pathId = D.order[0];
   var week = parseInt(params.get("week"), 10);
-  if (!(week >= 1 && week <= D.paths[pathId].weeks.length)) week = 1;
+  if (!(week >= D.paths[pathId].firstWeek && week <= D.paths[pathId].firstWeek + D.paths[pathId].weeks.length - 1)) week = D.paths[pathId].firstWeek;
 
   function store(key, value) {
     try { window.localStorage.setItem(PREFIX + key, JSON.stringify(value)); } catch (e) { /* storage may be blocked */ }
@@ -79,7 +79,7 @@
   function renderTrack() {
     var list = $("track");
     list.innerHTML = "";
-    for (var w = 1; w <= D.paths[pathId].weeks.length; w++) {
+    for (var w = D.paths[pathId].firstWeek; w <= D.paths[pathId].firstWeek + D.paths[pathId].weeks.length - 1; w++) {
       var saved = load(weekKey(pathId, w));
       var li = document.createElement("li");
       var a = document.createElement("a");
@@ -110,7 +110,7 @@
 
   function renderWeek() {
     var p = D.paths[pathId];
-    var w = p.weeks[week - 1];
+    var w = p.weeks[week - p.firstWeek];
     document.body.setAttribute("data-path", pathId);
     document.title = p.name + " check-in, week " + week;
     $("path-select").value = pathId;
@@ -133,7 +133,8 @@
   }
 
   function go(newPath, newWeek) {
-    if (newWeek > D.paths[newPath].weeks.length) newWeek = 1;
+    var np = D.paths[newPath];
+    if (newWeek < np.firstWeek || newWeek > np.firstWeek + np.weeks.length - 1) newWeek = np.firstWeek;
     pathId = newPath;
     week = newWeek;
     window.history.replaceState(null, "", "checkin.html?path=" + pathId + "&week=" + week);
@@ -142,7 +143,7 @@
 
   function buildText() {
     var p = D.paths[pathId];
-    var w = p.weeks[week - 1];
+    var w = p.weeks[week - p.firstWeek];
     var d = readForm();
     var s = statusLabel(d.status);
     var lines = [
@@ -152,7 +153,7 @@
       "Class code: " + d.code,
       "GitHub repository: " + d.repo,
       "Path: " + p.name + " (" + p.unity + ")",
-      "Week: " + week + " of " + p.weeks.length,
+      "Week: " + week + " (check-in " + (week - p.firstWeek + 1) + " of " + p.weeks.length + ")",
       "Target this week: " + w.target,
       "",
       "Evidence I can show (" + w.evidence + "):",
@@ -213,7 +214,7 @@
 
   function buildPayload() {
     var p = D.paths[pathId];
-    var w = p.weeks[week - 1];
+    var w = p.weeks[week - p.firstWeek];
     var d = readForm();
     return {
       code: d.code,
@@ -371,7 +372,7 @@
 
   function buildDocx() {
     var p = D.paths[pathId];
-    var w = p.weeks[week - 1];
+    var w = p.weeks[week - p.firstWeek];
     var d = readForm();
     var s = statusLabel(d.status);
     var rows = [
@@ -380,7 +381,7 @@
       ["Class code", d.code],
       ["GitHub repository", d.repo],
       ["Path", p.name + " (" + p.unity + ")"],
-      ["Week", week + " of " + p.weeks.length],
+      ["Week", week + " (check-in " + (week - p.firstWeek + 1) + " of " + p.weeks.length + ")"],
       ["Target this week", w.target],
       ["Evidence I can show", d.evidence || "(none yet)"],
       ["What I finished", d.finished],

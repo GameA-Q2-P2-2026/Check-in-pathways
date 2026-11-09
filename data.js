@@ -21,7 +21,8 @@ window.CHECKIN_DATA = {
             "Which path are you leaning toward, and what made you choose it?"
           ]
         }
-      ]
+      ],
+      "firstWeek": 1
     },
     "design": {
       "name": "Design",
@@ -29,19 +30,11 @@ window.CHECKIN_DATA = {
       "link": "https://learn.unity.com/pathway/creative-core",
       "weeks": [
         {
-          "target": "Part 1 complete; project set up and organized",
-          "evidence": "The Unity Learn part marked complete, plus an open project",
+          "target": "Parts 1 and 2 complete; project set up and organized",
+          "evidence": "The Unity Learn parts marked complete, plus an open project",
           "questions": [
             "What did you make this week that you are proud of?",
             "What was the hardest tool to learn?"
-          ]
-        },
-        {
-          "target": "Part 2 complete",
-          "evidence": "Finished part and a screenshot of the scene you built",
-          "questions": [
-            "What design choice did you make on purpose?",
-            "What would you change?"
           ]
         },
         {
@@ -68,7 +61,8 @@ window.CHECKIN_DATA = {
             "What do you need from programmers?"
           ]
         }
-      ]
+      ],
+      "firstWeek": 3
     },
     "programming": {
       "name": "Programming",
@@ -92,19 +86,11 @@ window.CHECKIN_DATA = {
           ]
         },
         {
-          "target": "Part 3 complete",
-          "evidence": "Finished part and a working build or Play-mode demo",
+          "target": "Parts 3 and 4 complete",
+          "evidence": "Both parts finished, a working build or Play-mode demo, and code with comments",
           "questions": [
             "Which part of your code are you least sure about?",
-            "How could you test it?"
-          ]
-        },
-        {
-          "target": "Part 4 complete",
-          "evidence": "Finished part and code with comments",
-          "questions": [
-            "Where did you reuse code or ideas?",
-            "What would you refactor?"
+            "Where did you reuse code or ideas?"
           ]
         },
         {
@@ -115,7 +101,8 @@ window.CHECKIN_DATA = {
             "What do you need from designers and writers?"
           ]
         }
-      ]
+      ],
+      "firstWeek": 3
     },
     "development": {
       "name": "Development / Management",
@@ -131,7 +118,7 @@ window.CHECKIN_DATA = {
           ]
         },
         {
-          "target": "Part 2 complete",
+          "target": "Part 2 complete; draft task list",
           "evidence": "Finished part and a draft task list",
           "questions": [
             "How did you break the work into tasks?",
@@ -139,7 +126,7 @@ window.CHECKIN_DATA = {
           ]
         },
         {
-          "target": "Part 3 complete",
+          "target": "Part 3 complete; updated task board",
           "evidence": "Finished part and an updated task board",
           "questions": [
             "What is slipping and why?",
@@ -147,22 +134,15 @@ window.CHECKIN_DATA = {
           ]
         },
         {
-          "target": "Part 4 complete",
-          "evidence": "Finished part and a draft schedule for the group project",
-          "questions": [
-            "Who on the team will need help first?",
-            "How will you check progress?"
-          ]
-        },
-        {
-          "target": "Group project plan ready: roles, task board, milestones",
-          "evidence": "A one-page project plan",
+          "target": "Part 4 complete; group project plan ready: roles, task board, milestones",
+          "evidence": "Finished part and a one-page project plan",
           "questions": [
             "Is the plan realistic for two weeks?",
             "What is the biggest risk?"
           ]
         }
-      ]
+      ],
+      "firstWeek": 3
     },
     "writing": {
       "name": "Game Writing",
@@ -170,23 +150,15 @@ window.CHECKIN_DATA = {
       "link": "",
       "weeks": [
         {
-          "target": "Deliverable 1: mini-story published",
-          "evidence": "The Twine HTML file and partner feedback",
+          "target": "Deliverable 1: mini-story published, plus your story pitch and flowchart",
+          "evidence": "The Twine HTML file, partner feedback, and a one-page pitch with flowchart",
           "questions": [
             "Which choice feels most meaningful, and why?",
-            "Where did your partner get confused?"
+            "Can you finish this story in the weeks you have left?"
           ]
         },
         {
-          "target": "Deliverable 2: pitch, flowchart, Twine skeleton, Unity opening scene",
-          "evidence": "The one-page pitch and flowchart",
-          "questions": [
-            "Can you finish this story in three weeks?",
-            "Where do your branches rejoin?"
-          ]
-        },
-        {
-          "target": "Deliverable 3: first-half draft and Unity dialogue box",
+          "target": "Deliverable 2: first-half draft with variables, and a Unity dialogue box",
           "evidence": "Draft with variables and a working dialogue box",
           "questions": [
             "Which choice matters later?",
@@ -194,7 +166,7 @@ window.CHECKIN_DATA = {
           ]
         },
         {
-          "target": "Deliverable 4: complete draft and one scene in Unity",
+          "target": "Deliverable 3: complete draft and one scene running in Unity",
           "evidence": "Full draft, workshop notes, running Unity scene",
           "questions": [
             "Could a reader tell who is speaking without a name?",
@@ -202,14 +174,15 @@ window.CHECKIN_DATA = {
           ]
         },
         {
-          "target": "Deliverable 5: final package and narrative brief",
+          "target": "Deliverable 4: final package and narrative brief",
           "evidence": "Published story, Unity scene, reflection, brief",
           "questions": [
             "What did playtesters show you?",
             "What text will the group game need from you?"
           ]
         }
-      ]
+      ],
+      "firstWeek": 3
     }
   },
   "order": [

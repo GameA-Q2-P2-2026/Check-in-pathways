@@ -1,8 +1,9 @@
 # Game Design weekly check-ins
 
-A static website for weekly check-ins. Everyone starts with two Unity
-Essentials check-ins, then checks in five times on their path (Design,
-Programming, Development / Management, or Game Writing). Students build each
+A static website for weekly check-ins that follows the 8-week class: Unity
+Essentials in weeks 1 and 2 (two check-ins), then one of four paths (Design,
+Programming, Development / Management, or Game Writing) in weeks 3 to 6 (four
+check-ins). Weeks 7 and 8 are the final group project. Students build each
 check-in and submit it from the page. The site also explains how the course is
 graded (1000 points) and links a Word check-in sheet for Essentials and for each
 path.

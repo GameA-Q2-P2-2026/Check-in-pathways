@@ -232,9 +232,9 @@ textarea { resize: vertical; min-height: 5.5rem; }
 .pointsbar .row { display: flex; gap: 4px; min-height: 4.2rem; }
 .pointsbar .seg { display: flex; flex-direction: column; justify-content: center; padding: 0.5rem 0.9rem; border-radius: 10px; border: 2px solid var(--white); font-weight: 800; line-height: 1.15; min-width: 0; }
 .pointsbar .seg small { display: block; font-weight: 600; font-size: 0.85rem; }
-.seg.e { background: #2457e6; color: #fff; flex: 100; }
+.seg.e { background: #2457e6; color: #fff; flex: 150; }
 .seg.c { background: var(--yellow); color: var(--ink); flex: 200; }
-.seg.p { background: #087f5b; color: #fff; flex: 500; }
+.seg.p { background: #087f5b; color: #fff; flex: 450; }
 .seg.f { background: #6a3fe0; color: #fff; flex: 200; }
 .pointsbar .brace { display: flex; gap: 4px; margin-top: 0.6rem; font-weight: 700; font-size: 0.95rem; color: #d9dcf2; }
 .brace span { border-top: 3px solid var(--mint); padding-top: 0.3rem; }

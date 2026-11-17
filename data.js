@@ -38,24 +38,16 @@ window.CHECKIN_DATA = {
           ]
         },
         {
-          "target": "Part 3 complete; a rough sketch of the group game's look",
-          "evidence": "Finished part and a mood board or sketch",
+          "target": "Parts 3 and 4 complete; a rough sketch of the group game's look",
+          "evidence": "Both parts finished, a polished scene, and a mood board or sketch",
           "questions": [
             "What feeling should a player have in your scene?",
-            "How did you create it?"
+            "Where could a player get lost or confused?"
           ]
         },
         {
-          "target": "Parts 4 and 5 complete",
-          "evidence": "Both parts finished and a polished scene",
-          "questions": [
-            "Where could a player get lost or confused?",
-            "Who has seen your work and what did they say?"
-          ]
-        },
-        {
-          "target": "Part 6 complete; design brief ready for the group project",
-          "evidence": "Finished part and a one-page design brief",
+          "target": "Parts 5 and 6 complete; design brief ready for the group project",
+          "evidence": "Both parts finished and a one-page design brief",
           "questions": [
             "What would you want your team to know about the look of the game?",
             "What do you need from programmers?"
@@ -70,19 +62,11 @@ window.CHECKIN_DATA = {
       "link": "https://learn.unity.com/pathway/junior-programmer",
       "weeks": [
         {
-          "target": "Part 1 complete",
-          "evidence": "The Unity Learn part marked complete, plus working code that runs",
+          "target": "Parts 1 and 2 complete",
+          "evidence": "Both parts finished, plus working code that runs",
           "questions": [
             "Can you explain what your script does line by line?",
             "What error took the longest to fix?"
-          ]
-        },
-        {
-          "target": "Part 2 complete",
-          "evidence": "Finished part and a short demo of the project",
-          "questions": [
-            "What is one thing you changed to see what would happen?",
-            "How did you debug it?"
           ]
         },
         {
@@ -97,7 +81,7 @@ window.CHECKIN_DATA = {
           "target": "Part 5 complete; list of features you could build for the group game",
           "evidence": "Finished part and a short list of features",
           "questions": [
-            "Which feature could you build in two weeks?",
+            "Which feature could you build in the time you have?",
             "What do you need from designers and writers?"
           ]
         }
@@ -110,19 +94,11 @@ window.CHECKIN_DATA = {
       "link": "https://learn.unity.com/pathway/game-development",
       "weeks": [
         {
-          "target": "Part 1 complete",
-          "evidence": "The Unity Learn part marked complete, plus a short summary of what a game project needs",
+          "target": "Parts 1 and 2 complete; draft task list",
+          "evidence": "Both parts finished, a short summary of what a game project needs, and a draft task list",
           "questions": [
             "What are the main jobs on a game team?",
-            "Which ones interest you?"
-          ]
-        },
-        {
-          "target": "Part 2 complete; draft task list",
-          "evidence": "Finished part and a draft task list",
-          "questions": [
-            "How did you break the work into tasks?",
-            "What did you underestimate?"
+            "How did you break the work into tasks?"
           ]
         },
         {
@@ -137,7 +113,7 @@ window.CHECKIN_DATA = {
           "target": "Part 4 complete; group project plan ready: roles, task board, milestones",
           "evidence": "Finished part and a one-page project plan",
           "questions": [
-            "Is the plan realistic for two weeks?",
+            "Is the plan realistic for three weeks?",
             "What is the biggest risk?"
           ]
         }
@@ -158,24 +134,16 @@ window.CHECKIN_DATA = {
           ]
         },
         {
-          "target": "Deliverable 2: first-half draft with variables, and a Unity dialogue box",
-          "evidence": "Draft with variables and a working dialogue box",
+          "target": "Deliverable 2: complete draft with variables, and a Unity dialogue box running one scene",
+          "evidence": "Full draft, variables and a conditional that change the story, and a working dialogue box",
           "questions": [
             "Which choice matters later?",
             "What happens when you press a button in Unity?"
           ]
         },
         {
-          "target": "Deliverable 3: complete draft and one scene running in Unity",
-          "evidence": "Full draft, workshop notes, running Unity scene",
-          "questions": [
-            "Could a reader tell who is speaking without a name?",
-            "What did workshop feedback change?"
-          ]
-        },
-        {
-          "target": "Deliverable 4: final package and narrative brief",
-          "evidence": "Published story, Unity scene, reflection, brief",
+          "target": "Deliverable 3: playtested final story, Unity scene, reflection, and narrative brief",
+          "evidence": "Published story, Unity scene, playtest notes, reflection, and brief",
           "questions": [
             "What did playtesters show you?",
             "What text will the group game need from you?"
